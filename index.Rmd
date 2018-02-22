@@ -1,0 +1,37 @@
+---
+title: "Title 1"
+author: 'Lemuel Kumarga'
+output:
+  html_document:
+    includes:
+      in_header: "shared/html/fonts.html"
+    code_folding: hide
+    css: ['shared/css/defaults.css','../../../shared/css/definitions.css',
+          '../../../shared/css/general.css',
+          'shared/css/Rmd.css']
+    theme: cosmo
+    toc: yes
+    toc_depth: 4
+    self_contained: false
+    keep_md: true
+---
+
+```{r echo=FALSE, warning=FALSE, results='hide'}
+packages <- c("knitr")
+tmp <- lapply(packages, library, character.only = TRUE)
+
+read_chunk("script.R")
+  
+```
+
+## Preliminaries
+
+First load the necessary packages for this exercise.
+```{r}
+<<init>>
+
+si <- sessionInfo()
+base_pkg_str <- paste0("Base Packages: ",paste(si[["basePkgs"]], collapse=", "))
+attached_pkg_str <- paste0("Attached Packages: ",paste(names(si[["otherPkgs"]]), collapse=", "))
+cat(paste0(base_pkg_str,"\n",attached_pkg_str))
+```
