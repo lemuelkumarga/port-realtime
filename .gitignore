@@ -39,3 +39,8 @@ rsconnect/
 # Index output files
 index.html
 index_files/
+index.md
+main.html
+main_files/
+main.md
+.Rproj.user

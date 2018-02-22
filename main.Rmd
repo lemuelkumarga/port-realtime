@@ -1,19 +1,22 @@
 ---
-title: "Title 1"
+title: "Insert Title Here"
 author: 'Lemuel Kumarga'
+always_allow_html: yes
 output:
   html_document:
-    includes:
-      in_header: "shared/html/fonts.html"
     code_folding: hide
-    css: ['shared/css/defaults.css','../../../shared/css/definitions.css',
-          '../../../shared/css/general.css',
-          'shared/css/Rmd.css']
+    css:
+    - shared/css/defaults.css
+    - ../../../shared/css/definitions.css
+    - ../../../shared/css/general.css
+    - shared/css/Rmd.css
+    includes:
+      in_header: shared/html/fonts.html
+    self_contained: no
     theme: cosmo
     toc: yes
     toc_depth: 4
-    self_contained: false
-    keep_md: true
+  md_document: default
 ---
 
 ```{r echo=FALSE, warning=FALSE, results='hide'}
