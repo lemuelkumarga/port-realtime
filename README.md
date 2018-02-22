@@ -17,5 +17,5 @@ First load the necessary packages for this exercise.
     attached_pkg_str <- paste0("Attached Packages: ",paste(names(si[["otherPkgs"]]), collapse=", "))
     cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 
-    ## Base Packages: stats, graphics, grDevices, utils, datasets, base
+    ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
     ## Attached Packages: tidyr, ggplot2, dplyr, knitr
