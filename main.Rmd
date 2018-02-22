@@ -2,25 +2,7 @@
 title: "Insert Title Here"
 author: 'Lemuel Kumarga'
 always_allow_html: yes
-output:
-  html_document:
-    code_folding: hide
-    css:
-    - shared/css/defaults.css
-    - ../../../shared/css/definitions.css
-    - ../../../shared/css/general.css
-    - shared/css/Rmd.css
-    includes:
-      in_header: shared/html/fonts.html
-    self_contained: yes
-    theme: cosmo
-    toc: yes
-    toc_depth: 4
-  md_document: default
-knit: (function(inputFile, encoding) { 
-  rmarkdown::render(inputFile, output_format="html_document", encoding = encoding, output_file = file.path(dirname(inputFile), 'index.html'));
-  rmarkdown::render(inputFile, output_format="md_document", encoding = encoding, output_file = file.path(dirname(inputFile), 'README.md')); 
-  system("rm -rf README_files");})
+knit: (function(inputFile, encoding) { source("shared/knit.R"); knitter(inputFile, encoding)})
 ---
 
 ```{r echo=FALSE, warning=FALSE, results='hide'}
