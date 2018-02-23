@@ -103,4 +103,4 @@ cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
     ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
-    ## Attached Packages: pander, tidyr, ggplot2, dplyr, knitr
+    ## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr
