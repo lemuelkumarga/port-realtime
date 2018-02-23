@@ -39,4 +39,4 @@ rsconnect/
 
 # HTML Files
 index_files/*
-index.html
+*.html
