@@ -9,7 +9,7 @@ knit: (function(inputFile, encoding) { source("shared/knit.R"); knitter(inputFil
 packages <- c("knitr")
 tmp <- lapply(packages, library, character.only = TRUE)
 
-read_chunk("script.R")
+read_chunk("main.R")
 read_chunk("shared/helper.R")
   
 ```
