@@ -11,4 +11,7 @@ load_or_install.packages(packages)
 
 data_dir <- "data/"
 
+# Load some helper functions
+source("shared/helper.R")
+
 ## ---- end-of-init

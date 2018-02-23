@@ -10,8 +10,13 @@ packages <- c("knitr")
 tmp <- lapply(packages, library, character.only = TRUE)
 
 read_chunk("script.R")
+read_chunk("shared/helper.R")
   
 ```
+
+## Problem Description
+
+Insert Problem Description Here.
 
 ## Preliminaries
 
