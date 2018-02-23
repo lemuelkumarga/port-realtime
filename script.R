@@ -6,7 +6,7 @@
 source("shared/defaults.R")
 
 options(stringsAsFactors = FALSE)
-packages <- c("dplyr","ggplot2","tidyr")
+packages <- c("dplyr","ggplot2","tidyr","pander")
 load_or_install.packages(packages)
 
 data_dir <- "data/"

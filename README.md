@@ -75,6 +75,10 @@ Insert Title Here
 ================
 Lemuel Kumarga
 
+## Problem Description
+
+Insert Problem Description Here.
+
 ## Preliminaries
 
 First load the necessary packages for this exercise.
@@ -84,10 +88,13 @@ First load the necessary packages for this exercise.
 source("shared/defaults.R")
 
 options(stringsAsFactors = FALSE)
-packages <- c("dplyr","ggplot2","tidyr")
+packages <- c("dplyr","ggplot2","tidyr","pander")
 load_or_install.packages(packages)
 
 data_dir <- "data/"
+
+# Load some helper functions
+source("shared/helper.R")
 
 si <- sessionInfo()
 base_pkg_str <- paste0("Base Packages: ",paste(si[["basePkgs"]], collapse=", "))
@@ -96,4 +103,4 @@ cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
     ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
-    ## Attached Packages: tidyr, ggplot2, dplyr, knitr
+    ## Attached Packages: pander, tidyr, ggplot2, dplyr, knitr
