@@ -2,7 +2,7 @@
 title: "Insert Title Here"
 author: 'Lemuel Kumarga'
 always_allow_html: yes
-knit: (function(inputFile, encoding) { source("shared/knit.R"); knitter(inputFile, encoding)})
+knit: (function(inputFile, encoding) { source("shared/knit.R"); knitter(inputFile, encoding, prepend_mds=c("shared/md/requirements.md","shared/md/creating.md","shared/md/cloning.md")) })
 ---
 
 ```{r echo=FALSE, warning=FALSE, results='hide'}
