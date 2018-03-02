@@ -92,6 +92,7 @@ packages <- c("dplyr","ggplot2","tidyr","pander")
 load_or_install.packages(packages)
 
 data_dir <- "data/"
+output_dir <- "output/"
 
 # Load some helper functions
 source("shared/helper.R")
@@ -102,5 +103,5 @@ attached_pkg_str <- paste0("Attached Packages: ",paste(names(si[["otherPkgs"]]),
 cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
-    ## Base Packages: stats, graphics, grDevices, utils, datasets, base
+    ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
     ## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr
