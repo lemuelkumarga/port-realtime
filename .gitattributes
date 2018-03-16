@@ -1,2 +1,2 @@
 index_files/* linguist-vendored
-*.html linguist-documentation
+/*.html linguist-documentation
