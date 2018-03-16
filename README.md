@@ -55,10 +55,10 @@ Please replicate the steps below in Terminal to ensure success.
 
 ``` sh
 # Clone the repo as usual
-git clone https://github.com/lemuelkumarga/.
+git clone https://github.com/lemuelkumarga/R-template
 
 # Initialize submodule
-cd .
+cd R-template
 git submodule init
 git submodule update
 
