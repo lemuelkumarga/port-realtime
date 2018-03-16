@@ -55,10 +55,10 @@ Please replicate the steps below in Terminal to ensure success.
 
 ``` sh
 # Clone the repo as usual
-git clone https://github.com/lemuelkumarga/R-template
+git clone https://github.com/lemuelkumarga/.
 
 # Initialize submodule
-cd R-template
+cd .
 git submodule init
 git submodule update
 
@@ -106,5 +106,5 @@ attached_pkg_str <- paste0("Attached Packages: ",paste(names(si[["otherPkgs"]]),
 cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
-    ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
+    ## Base Packages: stats, graphics, grDevices, utils, datasets, base
     ## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr
