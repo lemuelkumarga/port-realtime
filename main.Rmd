@@ -12,7 +12,6 @@ tmp <- lapply(packages, library, character.only = TRUE)
 # Set images globally
 opts_chunk$set(fig.align='center', fig.height = 4, fig.width = 7)
 read_chunk("main.R")
-read_chunk("shared/helper.R")
   
 ```
 
