@@ -6,6 +6,12 @@
 ### Pandoc 2.1 
 - Need to reference googlefonts
 
+### Git LFS
+- If there exists a cache folder, you may need to install Git LFS
+to pull files > 100 MB. Please follow instructions [here](https://github.com/git-lfs/git-lfs/wiki/Installation).
+- After Git LFS is installed, type `git lfs pull` to download the large files in the project.
+
+
 ## Creating A New Repository from the Template
 
 To create a new project by using this template as skeleton, we need to manually "fork" this template. Extra precaution is also required as the R-template contains links to other repos (submodules).
