@@ -87,8 +87,9 @@ cd ../../
 ---
 Insert Title Here
 ================
-Lemuel Kumarga
-Mon YYYY
+<span class="meta"><span class="by">by</span>
+<span class="writer" style="display:inline">Lemuel Kumarga</span>
+<span class="date">Mon YYYY</span></span>
 
 ## Problem Description
 
