@@ -2,7 +2,7 @@
   <folder>template</folder>
   <title>Title 1</title>
   <excerpt>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra dolor a aliquam tempus. Suspendisse nulla nisi, fringilla a rhoncus in, blandit eget tellus. In porttitor lorem ut risus pellentesque, id facilisis enim scelerisque.</excerpt>
-  <date>Mon YYYY</date>
+  <date>YYYY-MM</date>
   <algo>Algorithm</algo>
   <code>R</code>
   <color></color>
