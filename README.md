@@ -87,9 +87,8 @@ cd ../../
 ---
 Insert Title Here
 ================
-<span class="meta"><span class="by">by</span>
-<span class="writer" style="display:inline">Lemuel Kumarga</span>
-<span class="date">Mon YYYY</span></span>
+<span class="meta"><span class="by">by</span><span class="writer">Lemuel
+Kumarga</span><span class="date">Mon YYYY</span></span>
 
 ## Problem Description
 
@@ -118,7 +117,7 @@ attached_pkg_str <- paste0("Attached Packages: ",paste(names(si[["otherPkgs"]]),
 cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
-    ## Base Packages: stats, graphics, grDevices, utils, datasets, base
+    ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
     ## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr
 
 ## Lorem Ipsum
