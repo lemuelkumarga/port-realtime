@@ -1,6 +1,7 @@
 ---
 title: "Insert Title Here"
-author: '<span class="meta"><span class="writer">Lemuel Kumarga</span><br><span class="date">Mon YYYY</span></span>'
+author: '<span class="meta">Lemuel Kumarga</span>'
+date: '<span class="meta">Mon YYYY</span>'
 always_allow_html: yes
 knit: (function(inputFile, encoding) { source("shared/knit.R"); knitter(inputFile, encoding, prepend_mds=c("shared/md/website.md","shared/md/requirements.md","shared/md/creating.md","shared/md/cloning.md")) })
 ---
