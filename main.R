@@ -8,8 +8,6 @@ source("shared/defaults.R")
 source("shared/helper.R")
 
 options(stringsAsFactors = FALSE)
-packages <- c("dplyr","ggplot2","tidyr","pander")
-load_or_install.packages(packages)
 
 data_dir <- "data/"
 output_dir <- "output/"
