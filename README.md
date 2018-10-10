@@ -105,8 +105,6 @@ source("shared/defaults.R")
 source("shared/helper.R")
 
 options(stringsAsFactors = FALSE)
-packages <- c("dplyr","ggplot2","tidyr","pander")
-load_or_install.packages(packages)
 
 data_dir <- "data/"
 output_dir <- "output/"
@@ -118,7 +116,7 @@ cat(paste0(base_pkg_str,"\n",attached_pkg_str))
 ```
 
     ## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
-    ## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr
+    ## Attached Packages: tidyr, pander, ggplot2, rlang, dplyr, knitr
 
 ## Lorem Ipsum
 

@@ -165,8 +165,6 @@ source(&quot;shared/defaults.R&quot;)
 source(&quot;shared/helper.R&quot;)
 
 options(stringsAsFactors = FALSE)
-packages &lt;- c(&quot;dplyr&quot;,&quot;ggplot2&quot;,&quot;tidyr&quot;,&quot;pander&quot;)
-load_or_install.packages(packages)
 
 data_dir &lt;- &quot;data/&quot;
 output_dir &lt;- &quot;output/&quot;
@@ -176,7 +174,7 @@ base_pkg_str &lt;- paste0(&quot;Base Packages: &quot;,paste(si[[&quot;basePkgs&q
 attached_pkg_str &lt;- paste0(&quot;Attached Packages: &quot;,paste(names(si[[&quot;otherPkgs&quot;]]), collapse=&quot;, &quot;))
 cat(paste0(base_pkg_str,&quot;\n&quot;,attached_pkg_str))</code></pre>
 <pre><code>## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
-## Attached Packages: tidyr, pander, ggplot2, dplyr, knitr</code></pre>
+## Attached Packages: tidyr, pander, ggplot2, rlang, dplyr, knitr</code></pre>
 </section>
 <section id="lorem-ipsum" class="level2">
 <h2>Lorem Ipsum</h2>
