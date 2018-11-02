@@ -1,204 +1,136 @@
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<html>
 <head>
+  <title>Insert Title Here</title>
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-
-
-<meta name="author" content="Lemuel Kumarga" />
-
-
-<title>Insert Title Here</title>
-
-<script src="index_files/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="index_files/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="index_files/navigation-1.1/tabsets.js"></script>
-<script src="index_files/navigation-1.1/codefolding.js"></script>
-<link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="index_files/highlightjs-9.12.0/highlight.js"></script>
-<script src="shared/js/popover.js"></script>
-<script src="shared/js/html-widgets.js"></script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
-<link rel="stylesheet" href="shared/css/defaults.css" />
-<link rel="stylesheet" href="shared/css/defaults.css" />
-<link rel="stylesheet" href="../../shared/css/definitions.css" />
-<link rel="stylesheet" href="shared/css/defaults.css" />
-<link rel="stylesheet" href="shared/css/defaults.css" />
-<link rel="stylesheet" href="../../shared/css/definitions.css" />
-<link rel="stylesheet" href="../../shared/css/general.css" />
-<link rel="stylesheet" href="shared/css/Rmd.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Insert Title Here',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  '<span class="meta">Lemuel Kumarga</span>' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <link href="index_files/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="index_files/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="index_files/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="index_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="index_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+  </style>
+
+  <link rel="stylesheet" href="shared/css/defaults.css" />
+  <link rel="stylesheet" href="../../shared/css/definitions.css" />
+  <link rel="stylesheet" href="../../shared/css/general.css" />
+  <link rel="stylesheet" href="shared/css/ppt.css" />
 
 </head>
 
-<body>
+<body style="opacity: 0">
 
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
+<slides>
 
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;"><span class="meta">Mon YYYY</span></p>
+          </hgroup>
+  </slide>
 
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Section Heading </h2><h3> Subtitle</h3></hgroup><article  id="section-heading-subtitle">
 
-<div class="container-fluid main-container">
+</article></slide><slide class=""><hgroup><h2>Default Deck</h2></hgroup><article  id="default-deck">
 
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<ul>
+<li>Point 1</li>
+<li>Point 2</li>
+<li>Point 3</li>
 </ul>
-</div>
+
+</article></slide><slide class=""><hgroup><h2>Incremental Deck</h2></hgroup><article  id="incremental-deck">
+
+<ul class = 'build'>
+<li>Point 1</li>
+<li>Point 2</li>
+<li>Point 3</li>
+</ul>
+
+</article></slide><slide class="dark"><hgroup><h2>Dark Deck</h2></hgroup><article  id="dark-deck" class="slide-dark">
+
+<ul>
+<li>Point 1</li>
+<li>Point 2</li>
+<li>Point 3</li>
+</ul></article></slide>
 
 
+  <slide class="backdrop"></slide>
 
-<h1 class="title toc-ignore">Insert Title Here</h1>
-<h4 class="author"><em><span class="meta">Lemuel Kumarga</span></em></h4>
-<h4 class="date"><em><span class="meta">Mon YYYY</span></em></h4>
-
-</div>
-
-
-<section id="problem-description" class="level2">
-<h2>Problem Description</h2>
-<p>Insert Problem Description Here.</p>
-</section>
-<section id="preliminaries" class="level2">
-<h2>Preliminaries</h2>
-<p>First load the necessary packages for this exercise.</p>
-<pre class="r"><code># Load default settings for R Markdown -- see file for more details
-source(&quot;shared/defaults.R&quot;)
-# Load some helper functions
-source(&quot;shared/helper.R&quot;)
-
-options(stringsAsFactors = FALSE)
-
-data_dir &lt;- &quot;data/&quot;
-output_dir &lt;- &quot;output/&quot;
-
-si &lt;- sessionInfo()
-base_pkg_str &lt;- paste0(&quot;Base Packages: &quot;,paste(si[[&quot;basePkgs&quot;]], collapse=&quot;, &quot;))
-attached_pkg_str &lt;- paste0(&quot;Attached Packages: &quot;,paste(names(si[[&quot;otherPkgs&quot;]]), collapse=&quot;, &quot;))
-cat(paste0(base_pkg_str,&quot;\n&quot;,attached_pkg_str))</code></pre>
-<pre><code>## Base Packages: stats, graphics, grDevices, utils, datasets, methods, base
-## Attached Packages: tidyr, pander, ggplot2, rlang, dplyr, knitr</code></pre>
-</section>
-<section id="lorem-ipsum" class="level2">
-<h2>Lorem Ipsum</h2>
-<p><a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Lorem ipsum</a> dolor sit amet, consectetur adipiscing elit. Vivamus sit amet urna nunc. Ut bibendum sem nibh, lobortis tempor dolor scelerisque ut. Nunc elit lorem, accumsan in pharetra ac, sodales sit amet arcu. In hac habitasse platea dictumst. Sed accumsan fringilla purus. Aliquam tincidunt ultricies sapien, eu pellentesque quam porttitor dignissim. Cras convallis, ipsum feugiat porttitor tempus, tortor orci fringilla augue, vel ultrices magna massa varius nibh. Ut gravida posuere dolor, non tincidunt eros sollicitudin in. Curabitur quis odio condimentum lectus congue fermentum id eget odio. Proin sagittis, nisl ac imperdiet ornare, metus risus tempor velit, gravida laoreet lacus purus in metus. Sed sed cursus dolor. Aliquam lobortis purus eget iaculis interdum. Maecenas nec eros magna.</p>
-<p>Curabitur at urna in urna scelerisque maximus non ut urna. Nulla pharetra ipsum neque, quis dapibus ex egestas a. Nunc condimentum lectus et sapien convallis molestie. Suspendisse vel massa fringilla, imperdiet diam ut, fringilla lacus. Aliquam molestie orci purus, a tristique lacus malesuada quis. Ut rutrum lacus non vulputate iaculis. Cras tincidunt risus nisl, lobortis pellentesque purus laoreet in. Ut malesuada erat eu massa efficitur, condimentum euismod ligula imperdiet. Nunc lorem tortor, placerat iaculis facilisis vitae, euismod id nisl. Duis venenatis pharetra arcu sed sagittis. Vivamus eu ex vitae odio eleifend congue. Proin iaculis imperdiet sapien, et lobortis libero efficitur in. In ac ex elementum, ornare elit id, lacinia erat.</p>
-</section>
-
-
-
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
+</slides>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
@@ -207,6 +139,20 @@ $(document).ready(function () {
     script.type = "text/javascript";
     script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
   })();
 </script>
 
