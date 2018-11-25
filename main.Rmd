@@ -26,7 +26,7 @@ read_chunk("main.R")
 - Point 2
 - Point 3
 
-## Dark Deck { .slide-dark }
+## Dark Deck { .slide-invert }
 
 - <a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a>
 - Point 1
