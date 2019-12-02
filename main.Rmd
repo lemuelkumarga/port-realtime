@@ -1,30 +1,162 @@
 ---
-title: "Insert Title Here"
+title: "Comparing Two Portfolios in Real Time"
 author: '<span class="meta">Lemuel Kumarga</span>'
-date: '<span class="meta">Mon YYYY</span>'
+date: '<span class="meta">Dec 2019</span>'
 always_allow_html: yes
 knit: (function(inputFile, encoding) { source("shared/knit.R"); knitPPT(inputFile, encoding) })
 ---
 
-```{r echo=FALSE, warning=FALSE, results='hide'}
-packages <- c("knitr")
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+packages <- c("knitr","highcharter")
 tmp <- lapply(packages, library, character.only = TRUE)
 
 # Set images globally
 opts_chunk$set(fig.align='center', fig.height = 5, fig.width = 8)
-read_chunk("main.R")
 
-<<init>>
+# Load default settings for R Markdown -- see file for more details
+source("shared/defaults.R")
+# Load some helper functions
+source("shared/helper.R")
+
+options(stringsAsFactors = FALSE)
+
+data_dir <- "data/"
+output_dir <- "output/"
 ```
 
-# Section Heading | Subtitle
 
-## Default Deck
+## Problem Description
 
-- <a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a>
-- Point 1
-- Point 2
-- Point 3
+With the rise of the internet productivity tools such as email, text messaging and social media, more companies are required to be nimble and act within a couple of hours.
+
+Fortunately, advancements in hardware have allowed us to parse information in real time, providing wisdom in making these split-second decisions.
+
+In this portfolio, we will be building a simple real time tracker through AWS and visualizing it in Highcharts.
+
+## A Simple Use Case
+
+In this study, we will be comparing the performance of two exchange traded funds, <a href="https://investor.vanguard.com/etf/profile/VTI" target="_blank">VTI</a> and <a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a>.
+
+Both track the economy of United States, and the rest of the world respectively.
+
+Their performances are defined by their <a data-toggle="popover" title="Daily Returns" data-content="% gain when you sold the stock bought 24 hours ago">daily returns</a>: 
+<br>
+
+$$ \frac{\text{Current Price} - \text{Price 24 Hours Ago}}{\text{Price 24 Hours Ago}}$$
+
+The returns are measured in basis points ( 1 / 100th percent).
+
+## The Real Time Tracker
+
+```{r echo=FALSE, warning=FALSE}
+hcharts_opts = hcharts_ppt()
+hcharts_opts[['data']] = list(csvURL='https://j5ah51nweg.execute-api.ca-central-1.amazonaws.com/api/returns',
+                              enablePolling =TRUE,
+                              dataRefreshRate = 5)
+
+# Modify some defaults
+hcharts_opts$tooltip$headerFormat = NULL
+
+highchart(hc_opts=hcharts_opts, type='stock') %>%
+  hc_navigator(enabled=FALSE) %>%
+  hc_rangeSelector(enabled=FALSE) %>%
+  hc_scrollbar(enabled=FALSE) %>%
+  hc_title(text="VTI vs VXUS Performance") %>%
+  hc_xAxis(tickPositioner=JS("function () {
+                                var positions = []
+                                round_min = Math.ceil(this.dataMin / 60000) * 60000
+                    
+                                act_max = this.dataMax
+                                for (var tick = round_min ; tick <= act_max - 30000; tick += 60000) {
+                                    positions.push(tick);
+                                }
+                    
+                                positions.push(act_max)
+                    
+                                return positions
+                            }"),
+              labels=list(useHTML = FALSE,
+                       align='right',
+                       formatter=JS("function() {
+                                        var d = new Date(0);
+                                        d.setUTCSeconds(this.value/1000 + d.getTimezoneOffset()*60);
+                        
+                                        var hours = d.getHours();
+                                        if (hours < 10) hours = '0' + hours;
+                        
+                                        var minutes = d.getMinutes();
+                                        if (minutes < 10) minutes = '0' + minutes;
+                        
+                                        var seconds = d.getSeconds();
+                                        if (seconds == 0) seconds = '';
+                                        else if (seconds < 10) seconds = '0' + seconds;
+                                        return hours + ':' + minutes + (seconds == '' ? '' : ':' + seconds)
+                                    }")),
+           tickWidth = 0.5,
+           crosshair=TRUE) %>%
+  hc_yAxis(title=list(margin = 0,
+                      text="Daily Returns (bps)"),
+           labels=list(useHTML=FALSE,
+                       verticalAlign= 'middle',
+                       formatter=JS("function () {
+                            var label = this.axis.defaultLabelFormatter.call(this);
+                            return Highcharts.numberFormat(this.value * 10000.,0);
+                        }")),
+           gridLineWidth = 1,
+           tickWidth = 0.5,
+           opposite=FALSE) %>%
+  hc_legend(useHTML=FALSE,
+            align='right',
+            enabled=TRUE) %>%
+  hc_plotOptions(series=list(
+    dataLabels=list(
+      enabled=TRUE,
+      padding=5,
+      align='right',
+      style = list(
+        fontFamily = `@f`,
+        fontSize = '0.8em',
+        fontWeight = 'normal'
+      ),
+      formatter=JS("function(){
+                    var isLast = false;
+                    
+                    if(this.series.data.length == 0) return '';
+                    if(this.point.x == this.series.data[this.series.data.length - 1].x) isLast = true;
+
+                    if (isLast) {
+                        return '<span style=\"color:' + this.series.color + '\">' + this.series.name + ': ' + (this.y * 10000.).toFixed(2) + ' bps</span>';
+                    }
+                }")
+    )
+  )) %>%
+  hc_tooltip(useHTML=FALSE,
+             pointFormatter=JS("function() {
+             return this.series.name + ': ' +
+                    (this.y * 10000.).toFixed(2) + ' bps';
+              }"),
+             shared=TRUE) %>%
+  hc_series(list(color=`@c`(1)),
+            list(color=`@c`(2)))
+
+```
+
+
+# Building The Data Pipeline
+
+## A Brief Overview
+
+## The AWS DynamoDB Table
+
+## Writing The Data
+
+## Reading The Data
+
+# Takeaways
+
+## Conclusion
+
+## Limitations
 
 ## Dark Deck { .slide-invert }
 

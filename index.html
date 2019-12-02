@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Insert Title Here</title>
+  <title>Comparing Two Portfolios in Real Time</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -20,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Insert Title Here',
+                title: 'Comparing Two Portfolios in Real Time',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -61,6 +60,47 @@
   <script src="index_files/ioslides-13.5.1/js/hammer.js"></script>
   <script src="index_files/ioslides-13.5.1/js/slide-controller.js"></script>
   <script src="index_files/ioslides-13.5.1/js/slide-deck.js"></script>
+  <script src="index_files/htmlwidgets-1.3/htmlwidgets.js"></script>
+  <script src="index_files/proj4js-2.3.15/proj4.js"></script>
+  <link href="index_files/highcharts-7.0.1/css/motion.css" rel="stylesheet" />
+  <link href="index_files/highcharts-7.0.1/css/htmlwdgtgrid.css" rel="stylesheet" />
+  <script src="index_files/highcharts-7.0.1/highcharts.js"></script>
+  <script src="index_files/highcharts-7.0.1/highcharts-3d.js"></script>
+  <script src="index_files/highcharts-7.0.1/highcharts-more.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/stock.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/map.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/annotations.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/boost.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/data.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/drag-panes.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/drilldown.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/item-series.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/offline-exporting.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/overlapping-datalabels.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/exporting.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/export-data.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/funnel.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/heatmap.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/treemap.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/sankey.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/solid-gauge.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/streamgraph.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/sunburst.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/vector.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/wordcloud.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/xrange.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/tilemap.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/venn.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/gantt.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/timeline.js"></script>
+  <script src="index_files/highcharts-7.0.1/modules/parallel-coordinates.js"></script>
+  <script src="index_files/highcharts-7.0.1/plugins/grouped-categories.js"></script>
+  <script src="index_files/highcharts-7.0.1/plugins/motion.js"></script>
+  <script src="index_files/highcharts-7.0.1/plugins/multicolor_series.js"></script>
+  <script src="index_files/highcharts-7.0.1/custom/reset.js"></script>
+  <script src="index_files/highcharts-7.0.1/custom/symbols-extra.js"></script>
+  <script src="index_files/highcharts-7.0.1/custom/text-symbols.js"></script>
+  <script src="index_files/highchart-binding-0.7.0/highchart.js"></script>
 
   <style type="text/css">
 
@@ -70,6 +110,10 @@
 
     em {
       font-style: italic;
+    }
+
+    summary {
+      display: list-item;
     }
 
     slides > slide {
@@ -87,13 +131,17 @@
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
-  <link rel="stylesheet" href="shared/css/defaults.css" />
-  <link rel="stylesheet" href="../../shared/css/definitions.css" />
-  <link rel="stylesheet" href="../../shared/css/general.css" />
-  <link rel="stylesheet" href="shared/css/ppt.css" />
+  <link rel="stylesheet" href="shared/css/defaults.css" type="text/css" />
+  <link rel="stylesheet" href="../../shared/css/definitions.css" type="text/css" />
+  <link rel="stylesheet" href="../../shared/css/general.css" type="text/css" />
+  <link rel="stylesheet" href="shared/css/ppt.css" type="text/css" />
 
 </head>
 
@@ -107,22 +155,52 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;"><span class="meta">Mon YYYY</span></p>
+            <p style="margin-top: 6px; margin-left: -2px;"><span class="meta">Dec 2019</span></p>
           </hgroup>
   </slide>
 
-<slide class="segue invert nobackground level1"><hgroup class = 'auto-fadein'><h2>Section Heading </h2><h3> Subtitle</h3></hgroup><article  id="section-heading-subtitle">
+<slide class=""><hgroup><h2>Problem Description</h2></hgroup><article  id="problem-description">
 
-</article></slide><slide class=""><hgroup><h2>Default Deck</h2></hgroup><article  id="default-deck">
+<p>With the rise of the internet productivity tools such as email, text messaging and social media, more companies are required to be nimble and act within a couple of hours.</p>
 
-<ul>
-<li><a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a></li>
-<li>Point 1</li>
-<li>Point 2</li>
-<li>Point 3</li>
-</ul>
+<p>Fortunately, advancements in hardware have allowed us to parse information in real time, providing wisdom in making these split-second decisions.</p>
 
-</article></slide><slide class="invert "><hgroup><h2>Dark Deck</h2></hgroup><article  class="slide-invert" id="invert-deck">
+<p>In this portfolio, we will be building a simple real time tracker through AWS and visualizing it in Highcharts.</p>
+
+</article></slide><slide class=""><hgroup><h2>A Simple Use Case</h2></hgroup><article  id="a-simple-use-case">
+
+<p>In this study, we will be comparing the performance of two exchange traded funds, <a href="https://investor.vanguard.com/etf/profile/VTI" target="_blank">VTI</a> and <a href="https://investor.vanguard.com/etf/profile/VXUS" target="_blank">VXUS</a>.</p>
+
+<p>Both track the economy of United States, and the rest of the world respectively.</p>
+
+<p>Their performances are defined by their <a data-toggle="popover" title="Daily Returns" data-content="% gain when you sold the stock bought 24 hours ago">daily returns</a>: <br></p>
+
+<p>\[ \frac{\text{Current Price} - \text{Price 24 Hours Ago}}{\text{Price 24 Hours Ago}}\]</p>
+
+<p>The returns are measured in basis points ( 1 / 100th percent).</p>
+
+</article></slide><slide class=""><hgroup><h2>The Real Time Tracker</h2></hgroup><article  id="the-real-time-tracker">
+
+<div id="htmlwidget-8fe1a107f08d227f25d0" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8fe1a107f08d227f25d0">{"x":{"hc_opts":{"chart":{"style":{"fontFamily":"IBM Plex Sans","fontSize":"0.8em","marginBottom":45}},"credits":{"enabled":false},"exporting":{"enabled":false},"title":{"style":{"fontFamily":"IBM Plex Sans","fontSize":"1.5em","color":"#424242"},"text":"VTI vs VXUS Performance"},"xAxis":{"title":{"style":{"fontSize":"1.2em","color":"#A9A9A9"},"margin":20,"text":null},"labels":{"style":{"fontSize":"0.8em","color":"#A9A9A9"},"useHTML":false,"align":"right","formatter":"function() {\n                                        var d = new Date(0);\n                                        d.setUTCSeconds(this.value/1000 + d.getTimezoneOffset()*60);\n                        \n                                        var hours = d.getHours();\n                                        if (hours < 10) hours = '0' + hours;\n                        \n                                        var minutes = d.getMinutes();\n                                        if (minutes < 10) minutes = '0' + minutes;\n                        \n                                        var seconds = d.getSeconds();\n                                        if (seconds == 0) seconds = '';\n                                        else if (seconds < 10) seconds = '0' + seconds;\n                                        return hours + ':' + minutes + (seconds == '' ? '' : ':' + seconds)\n                                    }"},"lineWidth":2,"lineColor":"#C6C6C6","tickWidth":0.5,"gridLineWidth":0,"tickPositioner":"function () {\n                                var positions = []\n                                round_min = Math.ceil(this.dataMin / 60000) * 60000\n                    \n                                act_max = this.dataMax\n                                for (var tick = round_min ; tick <= act_max - 30000; tick += 60000) {\n                                    positions.push(tick);\n                                }\n                    \n                                positions.push(act_max)\n                    \n                                return positions\n                            }","crosshair":true},"yAxis":{"title":{"style":{"fontSize":"1.2em","color":"#A9A9A9"},"margin":0,"text":"Daily Returns (bps)"},"labels":{"style":{"fontSize":"0.8em","color":"#A9A9A9"},"useHTML":false,"verticalAlign":"middle","formatter":"function () {\n                            var label = this.axis.defaultLabelFormatter.call(this);\n                            return Highcharts.numberFormat(this.value * 10000.,0);\n                        }"},"lineWidth":2,"lineColor":"#C6C6C6","tickWidth":0.5,"gridLineWidth":1,"opposite":false},"zAxis":{"title":{"style":{"fontSize":"1.2em","color":"#A9A9A9"},"margin":20,"text":null},"labels":{"style":{"fontSize":"0.8em","color":"#A9A9A9"},"useHTML":true},"lineWidth":2,"lineColor":"#C6C6C6","tickWidth":0,"gridLineWidth":0},"legend":{"useHTML":false,"align":"right","itemStyle":{"fontFamily":"IBM Plex Sans","fontWeight":"normal","color":"#A9A9A9"},"navigation":{"activeColor":"#8D8D8D","inactiveColor":"#E2E2E2"},"enabled":true},"tooltip":{"useHTML":false,"style":{"fontFamily":"IBM Plex Sans","fontWeight":"normal","color":"#424242"},"delayForDisplay":10,"pointFormatter":"function() {\n             return this.series.name + ': ' +\n                    (this.y * 10000.).toFixed(2) + ' bps';\n              }","shared":true},"annotationsOptions":{"enabledButtons":false},"data":{"csvURL":"https://j5ah51nweg.execute-api.ca-central-1.amazonaws.com/api/returns","enablePolling":true,"dataRefreshRate":5},"navigator":{"enabled":false},"rangeSelector":{"enabled":false},"scrollbar":{"enabled":false},"plotOptions":{"series":{"dataLabels":{"enabled":true,"padding":5,"align":"right","style":{"fontFamily":"IBM Plex Sans","fontSize":"0.8em","fontWeight":"normal"},"formatter":"function(){\n                    var isLast = false;\n                    \n                    if(this.series.data.length == 0) return '';\n                    if(this.point.x == this.series.data[this.series.data.length - 1].x) isLast = true;\n\n                    if (isLast) {\n                        return '<span style=\"color:' + this.series.color + '\">' + this.series.name + ': ' + (this.y * 10000.).toFixed(2) + ' bps<\/span>';\n                    }\n                }"}}},"series":[{"color":"#335A87"},{"color":"#3C7759"}]},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"stock","fonts":"IBM+Plex+Sans","debug":false},"evals":["hc_opts.xAxis.labels.formatter","hc_opts.xAxis.tickPositioner","hc_opts.yAxis.labels.formatter","hc_opts.tooltip.pointFormatter","hc_opts.plotOptions.series.dataLabels.formatter"],"jsHooks":[]}</script>
+
+</article></slide><slide class="segue invert nobackground level1"><hgroup class = 'auto-fadein'><h2>Building The Data Pipeline</h2></hgroup><article  id="building-the-data-pipeline">
+
+</article></slide><slide class=""><hgroup><h2>A Brief Overview</h2></hgroup><article  id="a-brief-overview">
+
+</article></slide><slide class=""><hgroup><h2>The AWS DynamoDB Table</h2></hgroup><article  id="the-aws-dynamodb-table">
+
+</article></slide><slide class=""><hgroup><h2>Writing The Data</h2></hgroup><article  id="writing-the-data">
+
+</article></slide><slide class=""><hgroup><h2>Reading The Data</h2></hgroup><article  id="reading-the-data">
+
+</article></slide><slide class="segue invert nobackground level1"><hgroup class = 'auto-fadein'><h2>Takeaways</h2></hgroup><article  id="takeaways">
+
+</article></slide><slide class=""><hgroup><h2>Conclusion</h2></hgroup><article  id="conclusion">
+
+</article></slide><slide class=""><hgroup><h2>Limitations</h2></hgroup><article  id="limitations">
+
+</article></slide><slide class="invert "><hgroup><h2>Dark Deck</h2></hgroup><article  id="invert-deck" class="slide-invert">
 
 <ul>
 <li><a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a></li>

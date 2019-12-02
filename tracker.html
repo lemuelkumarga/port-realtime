@@ -1,0 +1,132 @@
+<html>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<body>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script type="text/javascript">
+Highcharts.stockChart('container', {
+    chart: {
+        type: 'spline'
+    },
+    
+    title: {
+        text: 'VTI vs VXUS Performance Comparisons'
+    },
+    
+    data: {
+        csvURL: 'https://j5ah51nweg.execute-api.ca-central-1.amazonaws.com/api/returns',
+        enablePolling: true,
+        dataRefreshRate: 5
+    },
+ 
+    exporting: {
+        enabled: false
+    },
+    
+    navigator: {
+        enabled: false
+    },
+    
+    rangeSelector: {
+        inputEnabled: false,
+        buttonTheme: {
+            visibility: 'hidden'
+        },
+        labelStyle: {
+            visibility: 'hidden'
+        }
+    },
+
+    scrollbar: {
+        enabled: false
+    }, 
+  
+    xAxis: {
+        crosshair: true,
+        tickPositioner: function () {
+            var positions = []
+            round_min = Math.ceil(this.dataMin / 60000) * 60000
+
+            act_max = this.dataMax 
+            round_max = Math.floor(act_max / 60000) * 60000
+            for (var tick = round_min ; tick <= act_max - 30000; tick += 60000) {
+                positions.push(tick);
+            }
+
+            if (round_max != act_max) {
+                positions.push(act_max)
+            }
+
+            return positions
+        },
+        labels: {
+            formatter: function() {
+                var d = new Date(0);
+                d.setUTCSeconds(this.value/1000 + d.getTimezoneOffset()*60);
+
+                var hours = d.getHours();
+                if (hours < 10) hours = '0' + hours;
+
+                var minutes = d.getMinutes();
+                if (minutes < 10) minutes = '0' + minutes;
+
+                var seconds = d.getSeconds();
+                if (seconds == 0) seconds = '';
+                else if (seconds < 10) seconds = '0' + seconds;
+                return hours + ':' + minutes + (seconds == '' ? '' : ':' + seconds)
+            }
+        }
+    },
+    
+    yAxis: {
+        opposite: false,
+        title: {
+            text: "Daily Returns (bps: 1/100 percent)"
+        },
+        labels: {
+            formatter: function () {
+                var label = this.axis.defaultLabelFormatter.call(this);
+                return Highcharts.numberFormat(this.value * 10000.,0);
+            }
+        },
+    },
+    
+    legend: {
+        align: 'right',
+        enabled: true
+    },
+    
+    /* https://stackoverflow.com/questions/36673214/show-value-of-last-point-as-label-or-tooltip-on-highcharts-stock-chart */
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                padding: 5,
+                align: 'right',
+                formatter: function(){
+                    var isLast = false;
+                    if (this.series.data.length == 0) return '';
+                    if(this.point.x == this.series.data[this.series.data.length - 1].x) isLast = true;
+                    if (isLast) {
+                        return '<span style="color:' + this.series.color + '">' + (this.y * 10000.).toFixed(2) + ' bps</span>';
+                    }
+                }
+            }
+        }
+    },
+    
+    tooltip: {
+        pointFormatter: function() {
+             return this.series.name + ': ' +
+                    (this.y * 10000.).toFixed(2) + ' bps';
+        },
+        shared: true
+    },
+
+});
+</script>
+  </body>
+</html>
