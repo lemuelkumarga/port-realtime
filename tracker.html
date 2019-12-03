@@ -47,18 +47,39 @@ Highcharts.stockChart('container', {
     xAxis: {
         crosshair: true,
         tickPositioner: function () {
-            var positions = []
-            round_min = Math.ceil(this.dataMin / 60000) * 60000
 
-            act_max = this.dataMax 
-            round_max = Math.floor(act_max / 60000) * 60000
-            for (var tick = round_min ; tick <= act_max - 30000; tick += 60000) {
-                positions.push(tick);
+			var positions = []
+
+            // Find UTC timezone offset to New York for DST adjustment
+            var cur_d = new Date()
+            var utc_d = new Date(cur_d.toLocaleString('en-US', { timeZone: 'UTC' }))
+            var ny_d = new Date(cur_d.toLocaleString('en-US', { timeZone: 'America/New_York' }))
+            var tz_offset = (ny_d.getTime() - utc_d.getTime())/1000
+
+            for (var tick = Math.ceil(this.dataMin / 60000) * 60000; 
+            	 tick <= this.dataMax - 30000; tick += 60000) {
+            	
+            	var d=new Date(0);
+            	// Default tick value is in local timezone
+            	// Convert the local timezone to utc then 
+            	// move it into NY timezone
+            	d.setUTCSeconds(tick/1000 + d.getTimezoneOffset()*60 + tz_offset);
+
+            	// Skip Non-Trading Hours
+            	// If we are on Friday after 4:00pm, skip for two days
+            	if (d.getUTCDay() == 5 && d.getUTCHours() >= 16) {
+            		tick += 2 * 24 * 3600 * 1000
+            	}
+            	// If we are after 4pm, skip until 9:30am
+            	if (d.getUTCHours() >= 16) {
+            		tick += 17.5 * 3600 * 1000 
+            		continue
+            	}	
+
+            	positions.push(tick);
             }
 
-            if (round_max != act_max) {
-                positions.push(act_max)
-            }
+            positions.push(this.dataMax)
 
             return positions
         },
