@@ -7,7 +7,7 @@ knit: (function(inputFile, encoding) { source("shared/knit.R"); knitPPT(inputFil
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-packages <- c("knitr","highcharter")
+packages <- c("knitr","highcharter","DiagrammeR")
 tmp <- lapply(packages, library, character.only = TRUE)
 
 # Set images globally
@@ -24,10 +24,12 @@ data_dir <- "data/"
 output_dir <- "output/"
 ```
 
+<!-- Additional JS CDN for this project -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 ## Problem Description
 
-With the rise of the internet productivity tools such as email, text messaging and social media, more companies are required to be nimble and act within a couple of hours.
+With the rise of internet productivity tools such as email, text messaging and social media, companies are required to be nimble and act within a couple of hours.
 
 Fortunately, advancements in hardware have allowed us to parse information in real time, providing wisdom in making these split-second decisions.
 
@@ -167,30 +169,164 @@ highchart(hc_opts=hcharts_opts, type='stock') %>%
 
 # Building The Data Pipeline
 
-## A Brief Overview
+## A Schematic Overview
+```{r echo=FALSE}
+grViz(paste0("
+  digraph pipeline {
 
-## The AWS DynamoDB Table
+    # Default Specs
+    graph [compound = true, nodesep = .5, ranksep = .25]
+    node [fontname = '",`@f`,"', fontsize = 14, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(ltxt),"', style=filled]
+    edge [fontname = '",`@f`,"', fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    
+    DB [label = 'Database', fillcolor = '",`@c`(txt,0.1),"', fontcolor = '",`@c`(txt),"', shape= rectangle, width = 5]
+    
+    UT_Script [label = 'updateTable\nScript', fillcolor = '",`@c`(1),"', shape=diamond]
+    AV_API [label = 'Stocks API', fillcolor = '",`@c`(txt),"', shape=rectangle]
+    { rank = same; UT_Script, AV_API}
 
-## Writing The Data
+    AV_API -> UT_Script -> DB [ dir=back, color='",`@c`(1),"' ]
+    AV_API -> UT_Script -> DB [ color='",`@c`(1),"' ]
+    
+    Highcharts [label = 'Tracker', fillcolor = '",`@c`(bg),"', fontcolor = '",`@c`(txt),"', shape=plaintext]
+    AWS_API [label = 'AWS API', fillcolor = '",`@c`(txt),"', shape=plaintext]
+    GR_Script [label = 'getReturns\nScript', fillcolor = '",`@c`(2),"', shape = diamond]
+    { rank = same; AWS_API, GR_Script}
+    
+    DB -> GR_Script [dir=back, color='",`@c`(2),"']
+    GR_Script -> AWS_API -> Highcharts [dir=back, color='",`@c`(2),"']
+    
+    DB -> GR_Script [color='",`@c`(2),"']
+    GR_Script -> AWS_API -> Highcharts [color='",`@c`(2),"']
+    
+  }
+"))
+```
 
-## Reading The Data
+<span style="font-size: 12pt"><span style="color:`r '@c'(1)`"><i class="fa fa-arrow-right"></i></span>: Writing&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;<span style="color:`r '@c'(2)`"><i class="fa fa-arrow-right"></i></span>: Reading</span>
 
-# Takeaways
+## Database & Structure
 
-## Conclusion
+We choose <a href="https://aws.amazon.com/dynamodb/" target="_blank">Amazon DynamoDB</a> as the database since it provides sufficient free storage, writing and reading capacities.
 
-## Limitations
+The database is organized in the following format:
 
-## Dark Deck { .slide-invert }
+<b class="color-1-text">Ticker</b>: The ID of the index fund (VTI)<br>
+<b class="color-1-text">Time</b>: Time of day (09:30:30)<br>
+<b class="color-1-text">Last Price</b>: Last recorded prices(151.00)<br>
+<b class="color-1-text">Last Returns</b>: Last calculated returns (0.00005)<br>
+<b class="color-1-text">Last TS</b>: Last modified timestamp (2019-12-12 09:30:30)<br>
 
-- <a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a>
-- Point 1
-- Point 2
-- Point 3
+## Writing the Data
 
-## Incremental Deck
+There are 3 main components involved in writing:
 
->- <a data-toggle="popover" title="Lorem Ipsum" data-content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Data obtained from https://www.lipsum.com/.">Hover Point</a>
->- Point 1
->- Point 2
->- Point 3
+- <b class="color-1-text">Stock API</b>: This API provides real-time stock/fund prices. In this project, we use <a href="https://www.alphavantage.co" target="_blank">Alpha Vantage</a> due to its free tier offerings.
+- <b class="color-1-text">Database</b>: Where all information is stored.
+- <b class="color-1-text"><a href="updateTable.zip" download>updateTable Script</a></b>: This Python script extracts raw information from the other 2 components, transforms it and writes it back into the database.
+
+## The Writing Pipeline
+
+```{r echo=FALSE}
+grViz(paste0("
+  digraph pipeline {
+
+    # Default Specs
+    graph [rankdir = LR, compound = true, nodesep = .5, ranksep = .25]
+    node [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(txt),"', style=filled, shape=rectangle]
+    edge [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    
+    AP_1 [ label = 'API' ]
+    
+    node [color='",`@c`(1),"', shape=diamond]
+    SC_1 [ label = 'Script' ]
+    SC_2 [ label = 'Script' ]
+    SC_3 [ label = 'Script' ]
+    SC_4 [ label = 'Script' ]
+    {rank = same; SC_1, SC_2, SC_3, SC_4 }
+    
+    node [color='",`@c`(txt,0.1),"', fontcolor = '",`@c`(txt),"', shape=rectangle]
+    DB_1 [label = 'Database']
+    DB_2 [label = 'Database']
+    {rank = same; DB_1, DB_2 }
+    
+    AP_1 -> SC_1 [dir=back, label='Ping\nevery 30 min'] 
+    AP_1 -> SC_2 [ label = 'Return\nlatest prices' ]
+    SC_2 -> DB_1 [ label = 'Query last\nstored prices' ]
+    SC_3 -> DB_1 [ dir=back, label = 'Return prices' ]
+    SC_3 -> SC_4 [ label = 'Calculate          \\rreturns          \\r', labeldistance = 50 ]
+    SC_4 -> DB_2 [ label = 'Write returns,\ntimestamp\nand latest\nprices' ]
+  }
+"))
+```
+
+## Reading The Data { .slide-col2 }
+
+There are 4 main components in the reading process:
+
+- <b class="color-2-text">Tracker</b>: The tracker pings every 5 seconds to retrieve the latest returns.
+- <b class="color-2-text"><a href="https://aws.amazon.com/api-gateway/">Amazon API</a></b>: This API acts as the gateway into the back-end ecosystem. It receives the pings and returns information to the tracker.
+- <b class="color-2-text">Database</b>: Where all the information is stored.
+- <b class="color-2-text"><a href="getReturns.py" download>getReturns Script</a></b>: This Python script queries the latest returns from the database and formats them in a digestible manner.
+
+## The Reading Pipeline { .slide-col2 }
+
+```{r echo=FALSE}
+grViz(paste0("
+  digraph pipeline {
+
+    # Default Specs
+    graph [rankdir = LR, compound = true, nodesep = .5, ranksep = .25]
+    node [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(txt),"', style=filled, shape=rectangle]
+    edge [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    
+    
+    
+    AP_1 [ label = 'API' ]
+    AP_2 [ label = 'API' ]
+    
+    node [color='",`@c`(txt,0.1),"', fontcolor = '",`@c`(txt),"']
+    DB_1 [label = 'Database']
+    {rank = same; AP_1, AP_2, DB_1 }   
+    
+    node [color='",`@c`(bg),"']
+    TK_1 [ label = 'Tracker' ]
+    TK_2 [ label = 'Tracker' ]
+    {rank = same; TK_1, TK_2} 
+
+    node [color='",`@c`(2),"', fontcolor = '",`@c`(bg),"', shape=diamond]
+    SC_1 [ label = 'Script' ]
+    SC_2 [ label = 'Script' ]
+    SC_3 [ label = 'Script' ]
+    {rank = same; SC_1, SC_2, SC_3 }
+    
+    
+    TK_1 -> AP_1 [label='Ping every\n5 seconds'] 
+    AP_1 -> SC_1 [label='Request\nreturns\n']
+    DB_1 -> SC_1 [dir=back,label='Query\nreturns']
+    DB_1 -> SC_2 [label='Return\nreturns']
+    SC_2 -> SC_3 [label='Reformat      \\rdata      \\r']
+    AP_2 -> SC_3 [dir=back, label='Send\nreturns']
+    TK_2 -> AP_2 [dir=back, label='Return\nreturns']
+    AP_1 -> DB_1 [color='",`@c`(bg),"']
+  }
+"))
+```
+
+# Limitations
+
+## The Database
+
+Under the current process, past prices of funds are replaced with new ones. 
+
+This approach was chosen so that DynamoDB storage would always fall within the free tier. If costs were not an issue, we should refrain from deleting for any future use.
+
+Alternatively, we could also utilize <a href="https://aws.amazon.com/s3/" target="_blank">S3</a> and <a href="https://aws.amazon.com/ec2/" target="_blank">EC2</a> since <a href="https://blog.yugabyte.com/dynamodb-pricing-calculator-expensive-vs-alternatives/" target="_blank">DynamoDB's pricing may increase significantly with scale</a>.
+
+## The 30 Minute Lag
+
+The tracker is not purely real-time since there is a 30 minute lag.
+
+The lag is due to <a href="https://www.alphavantage.co" target="_blank">Alpha Vantage</a>'s free tier limitations.
+
+By purchasing the premium tier, we could potentially reduce the lag to 1 minute.

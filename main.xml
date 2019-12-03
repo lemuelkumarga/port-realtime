@@ -1,13 +1,13 @@
 <project>
-  <folder>R-ppt</folder>
-  <title>Title 1</title>
-  <excerpt>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pharetra dolor a aliquam tempus. Suspendisse nulla nisi, fringilla a rhoncus in, blandit eget tellus. In porttitor lorem ut risus pellentesque, id facilisis enim scelerisque.</excerpt>
-  <date>YYYY-MM</date>
-  <algo>Algorithm</algo>
-  <code>R</code>
+  <folder>port-realtime</folder>
+  <title>Comparing Two Portfolios in Real Time</title>
+  <excerpt>Recent advancements in technology have pushed companies to move and react expeditiously. Using the performance of two funds as an example, this project aims to build a real-time tracker that empowers split-second decision-making.</excerpt>
+  <date>2019-12</date>
+  <algo>AWS</algo>
+  <code>R &amp; Python</code>
   <color></color>
-  <data>https://github.com/lemuelkumarga/R-ppt/tree/master/data</data>
-  <github>https://github.com/lemuelkumarga/R-ppt.git</github>
-  <img-author>Image Author</img-author>
-  <img-site>Image Site</img-site>
+  <data>https://j5ah51nweg.execute-api.ca-central-1.amazonaws.com/api/returns</data>
+  <github>https://github.com/lemuelkumarga/port-realtime.git</github>
+  <img-author>Unknown</img-author>
+  <img-site>Pixabay</img-site>
 </project>
