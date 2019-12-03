@@ -176,21 +176,23 @@ grViz(paste0("
 
     # Default Specs
     graph [compound = true, nodesep = .5, ranksep = .25]
-    node [fontname = '",`@f`,"', fontsize = 14, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(ltxt),"', style=filled]
-    edge [fontname = '",`@f`,"', fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    node [fontname = '",`@f`,"', fontsize = 14, fontcolor = '",`@c`(bg),"', penwidth=0, style=filled]
+    edge [fontname = '",`@f`,"', color='",`@c`(ltxt),"', fontcolor = '",`@c`(ltxt),"']
     
-    DB [label = 'Database', fillcolor = '",`@c`(txt,0.1),"', fontcolor = '",`@c`(txt),"', shape= rectangle, width = 5]
+    # Writing Nodes
+    DB [label = 'Database', color = '",`@c`(txt,0.1),"', fontcolor = '",`@c`(txt),"', shape= rectangle, width = 5]
     
-    UT_Script [label = 'updateTable\nScript', fillcolor = '",`@c`(1),"', shape=diamond]
-    AV_API [label = 'Stocks API', fillcolor = '",`@c`(txt),"', shape=rectangle]
+    UT_Script [label = 'updateTable\nScript', color = '",`@c`(1),"', shape=diamond]
+    AV_API [label = 'Stocks API', color = '",`@c`(txt),"', shape=rectangle]
     { rank = same; UT_Script, AV_API}
 
     AV_API -> UT_Script -> DB [ dir=back, color='",`@c`(1),"' ]
     AV_API -> UT_Script -> DB [ color='",`@c`(1),"' ]
     
-    Highcharts [label = 'Tracker', fillcolor = '",`@c`(bg),"', fontcolor = '",`@c`(txt),"', shape=plaintext]
-    AWS_API [label = 'AWS API', fillcolor = '",`@c`(txt),"', shape=plaintext]
-    GR_Script [label = 'getReturns\nScript', fillcolor = '",`@c`(2),"', shape = diamond]
+    # Reading Nodes
+    Highcharts [label = 'Tracker', color = '",`@c`(bg),"', fontcolor = '",`@c`(txt),"', shape=plaintext]
+    AWS_API [label = 'AWS API', color = '",`@c`(txt),"', shape=plaintext]
+    GR_Script [label = 'getReturns\nScript', color = '",`@c`(2),"', shape = diamond]
     { rank = same; AWS_API, GR_Script}
     
     DB -> GR_Script [dir=back, color='",`@c`(2),"']
@@ -229,13 +231,14 @@ There are 3 main components involved in writing:
 
 ```{r echo=FALSE}
 grViz(paste0("
-  digraph pipeline {
+  digraph writePipeline {
 
     # Default Specs
     graph [rankdir = LR, compound = true, nodesep = .5, ranksep = .25]
-    node [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(txt),"', style=filled, shape=rectangle]
-    edge [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    node [fontname = '",`@f`,"', fontsize = 12, penwidth=0, style=filled, shape=rectangle]
+    edge [fontname = '",`@f`,"', fontsize = 12, color='",`@c`(ltxt),"', fontcolor = '",`@c`(ltxt),"']
     
+    node [color='",`@c`(txt),"', fontcolor = '",`@c`(bg),"' ]
     AP_1 [ label = 'API' ]
     
     node [color='",`@c`(1),"', shape=diamond]
@@ -273,15 +276,15 @@ There are 4 main components in the reading process:
 
 ```{r echo=FALSE}
 grViz(paste0("
-  digraph pipeline {
+  digraph readPipeline {
 
     # Default Specs
     graph [rankdir = LR, compound = true, nodesep = .5, ranksep = .25]
-    node [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(bg),"', penwidth=0, color='",`@c`(txt),"', style=filled, shape=rectangle]
-    edge [fontname = '",`@f`,"', fontsize = 12, fontcolor = '",`@c`(ltxt),"', color='",`@c`(ltxt),"']
+    node [fontname = '",`@f`,"', fontsize = 12, penwidth=0, style=filled, shape=rectangle]
+    edge [fontname = '",`@f`,"', fontsize = 12, color='",`@c`(ltxt),"', fontcolor = '",`@c`(ltxt),"']
     
     
-    
+    node [color='",`@c`(txt),"', fontcolor = '",`@c`(bg),"']
     AP_1 [ label = 'API' ]
     AP_2 [ label = 'API' ]
     
