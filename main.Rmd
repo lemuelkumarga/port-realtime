@@ -25,6 +25,7 @@ output_dir <- "output/"
 ```
 
 <!-- Additional JS CDN for this project -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 ## Problem Description
@@ -76,11 +77,12 @@ highchart(hc_opts=hcharts_opts, type='stock') %>%
                                       for (var tick = Math.ceil(this.dataMin / 60000) * 60000; 
                                       	 tick <= this.dataMax - 30000; tick += 60000) {
                                       	
-                                      	var d=new Date(0);
+                                      	var d=new Date(0)
                                       	// Default tick value is in local timezone
                                       	// Convert the local timezone to utc then 
                                       	// move it into NY timezone
-                                      	d.setUTCSeconds(tick/1000 + d.getTimezoneOffset()*60 + tz_offset);
+                                      	var ny_time = tick + moment().zone() *60 * 1000 + tz_offset * 1000
+                                      	d.setTime(ny_time)
                           
                                       	// Skip Non-Trading Hours
                                       	// If we are on Friday after 4:00pm, skip for two days
@@ -104,15 +106,18 @@ highchart(hc_opts=hcharts_opts, type='stock') %>%
                        align='right',
                        formatter=JS("function() {
                                         var d = new Date(0);
-                                        d.setUTCSeconds(this.value/1000 + d.getTimezoneOffset()*60);
+                                        // By default date string to epoch conversion in Highcharts
+                                        // takes into account timezone - hence this.value is
+                                        // already in user's timezone
+                                        d.setTime(this.value);
                         
-                                        var hours = d.getHours();
+                                        var hours = d.getUTCHours();
                                         if (hours < 10) hours = '0' + hours;
                         
-                                        var minutes = d.getMinutes();
+                                        var minutes = d.getUTCMinutes();
                                         if (minutes < 10) minutes = '0' + minutes;
                         
-                                        var seconds = d.getSeconds();
+                                        var seconds = d.getUTCSeconds();
                                         if (seconds == 0) seconds = '';
                                         else if (seconds < 10) seconds = '0' + seconds;
                                         return hours + ':' + minutes + (seconds == '' ? '' : ':' + seconds)
