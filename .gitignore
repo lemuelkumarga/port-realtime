@@ -38,3 +38,10 @@ rsconnect/
 
 # README files
 README_files/*
+
+# Special Case
+updateTable/*
+!updateTable/dynamodb.py
+!updateTable/globalvars.py
+!updateTable/main.py
+!updateTable/polygon.py

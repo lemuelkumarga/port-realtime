@@ -29,10 +29,10 @@ def get_ts(portfolio):
 
 def lambda_handler(event, context):
     
-    # Get latest time (with 30 minute lag)
+    # Get latest time (with 10 minute lag)
     global cur_time
     cur_time = datetime.now().replace(tzinfo=tz.tzutc()) \
-                .astimezone(tz=tz.gettz('America/New_York'))-timedelta(minutes=30)
+                .astimezone(tz=tz.gettz('America/New_York'))-timedelta(minutes=10)
     cur_time = cur_time.strftime('%Y-%m-%d %H:%M:%S')
 
     get_ts('VTI')
