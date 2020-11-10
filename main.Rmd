@@ -1,7 +1,7 @@
 ---
 title: "Comparing Two Portfolios in Real Time"
 author: '<span class="meta">Lemuel Kumarga</span>'
-date: '<span class="meta">Dec 2019</span>'
+date: '<span class="meta">Dec 2019 (Revised on Nov 2020)</span>'
 always_allow_html: yes
 knit: (function(inputFile, encoding) { source("shared/knit.R"); knitPPT(inputFile, encoding) })
 ---
@@ -55,7 +55,7 @@ The returns are measured in basis points ( 1 / 100th percent).
 hcharts_opts = hcharts_ppt()
 hcharts_opts[['data']] = list(csvURL='https://j5ah51nweg.execute-api.ca-central-1.amazonaws.com/api/returns',
                               enablePolling =TRUE,
-                              dataRefreshRate = 5)
+                              dataRefreshRate = 2)
 
 # Modify some defaults
 hcharts_opts$tooltip$headerFormat = NULL
@@ -228,9 +228,9 @@ The database is organized in the following format:
 
 There are 3 main components involved in writing:
 
-- <b class="color-1-text">Stock API</b>: This API provides real-time stock/fund prices. In this project, we use <a href="https://www.alphavantage.co" target="_blank">Alpha Vantage</a> due to its free tier offerings.
+- <b class="color-1-text">Stock API</b>: This API provides real-time stock/fund prices. In this project, we use <a href="https://polygon.io" target="_blank">Polygon</a> through the <a href="https://alpaca.markets" target="_blank">Alpaca API</a>.
 - <b class="color-1-text">Database</b>: Where all information is stored.
-- <b class="color-1-text"><a href="updateTable.zip" download>updateTable Script</a></b>: This Python script extracts raw information from the other 2 components, transforms it and writes it back into the database.
+- <b class="color-1-text"><a href="https://github.com/lemuelkumarga/port-realtime/tree/master/updateTable" target="_blank">updateTable Script</a></b>: This Python script extracts raw information from the other 2 components, transforms it and writes it back into the database.
 
 ## The Writing Pipeline
 
@@ -258,7 +258,7 @@ grViz(paste0("
     DB_2 [label = 'Database']
     {rank = same; DB_1, DB_2 }
     
-    AP_1 -> SC_1 [dir=back, label='Ping\nevery 30 min'] 
+    AP_1 -> SC_1 [dir=back, label='Ping\nevery 10 min'] 
     AP_1 -> SC_2 [ label = 'Return\nlatest prices' ]
     SC_2 -> DB_1 [ label = 'Query last\nstored prices' ]
     SC_3 -> DB_1 [ dir=back, label = 'Return prices' ]
@@ -272,10 +272,10 @@ grViz(paste0("
 
 There are 4 main components in the reading process:
 
-- <b class="color-2-text">Tracker</b>: The tracker pings every 5 seconds to retrieve the latest returns.
-- <b class="color-2-text"><a href="https://aws.amazon.com/api-gateway/">Amazon API</a></b>: This API acts as the gateway into the back-end ecosystem. It receives the pings and returns information to the tracker.
+- <b class="color-2-text">Tracker</b>: The tracker pings every 2 seconds to retrieve the latest returns.
+- <b class="color-2-text"><a href="https://aws.amazon.com/api-gateway/" target="_blank">Amazon API</a></b>: This API acts as the gateway into the back-end ecosystem. It receives the pings and returns information to the tracker.
 - <b class="color-2-text">Database</b>: Where all the information is stored.
-- <b class="color-2-text"><a href="getReturns.py" download>getReturns Script</a></b>: This Python script queries the latest returns from the database and formats them in a digestible manner.
+- <b class="color-2-text"><a href="https://github.com/lemuelkumarga/port-realtime/blob/master/getReturns.py" target="_blank">getReturns Script</a></b>: This Python script queries the latest returns from the database and formats them in a digestible manner.
 
 ## The Reading Pipeline { .slide-col2 }
 
@@ -309,7 +309,7 @@ grViz(paste0("
     {rank = same; SC_1, SC_2, SC_3 }
     
     
-    TK_1 -> AP_1 [label='Ping every\n5 seconds'] 
+    TK_1 -> AP_1 [label='Ping every\n2 seconds'] 
     AP_1 -> SC_1 [label='Request\nreturns\n']
     DB_1 -> SC_1 [dir=back,label='Query\nreturns']
     DB_1 -> SC_2 [label='Return\nreturns']
@@ -331,10 +331,10 @@ This approach was chosen so that DynamoDB storage would always fall within the f
 
 Alternatively, we could also utilize <a href="https://aws.amazon.com/s3/" target="_blank">S3</a> and <a href="https://aws.amazon.com/ec2/" target="_blank">EC2</a> since <a href="https://blog.yugabyte.com/dynamodb-pricing-calculator-expensive-vs-alternatives/" target="_blank">DynamoDB's pricing may increase significantly with scale</a>.
 
-## The 30 Minute Lag
+## The 10 Minute Lag
 
-The tracker is not purely real-time since there is a 30 minute lag.
+The tracker is not purely real-time since there is a 10 minute lag.
 
-The lag is due to <a href="https://www.alphavantage.co" target="_blank">Alpha Vantage</a>'s free tier limitations.
+The lag is to accommodate AWS Lambda's <a href="https://aws.amazon.com/lambda/pricing/" target="_blank">free tier limitations</a>.
 
-By purchasing the premium tier, we could potentially reduce the lag to 1 minute.
+By purchasing more request counts, we could potentially reduce the lag to 1 minute.
