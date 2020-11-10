@@ -39,7 +39,7 @@ def lambda_handler(event, context):
     get_ts('VXUS')
     
     str_out = 'Time,VTI,VXUS\n'
-    for k in list(sorted(output.keys()))[-60:]:
+    for k in list(sorted(output.keys()))[-150:]:
 
         utc_time = datetime.strptime(k,'%Y-%m-%d %H:%M:%S')
         #utc_epoch = "{:.0f}000".format(utc_time.timestamp())
