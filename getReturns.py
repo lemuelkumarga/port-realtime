@@ -14,7 +14,7 @@ def get_ts(portfolio):
     out_q = tbl.query(
                 IndexName="portfolio-ts-index",
                 ScanIndexForward=False,
-                Limit=60,
+                Limit=150,
                 ProjectionExpression="portfolio,ts,ts_ret",
                 KeyConditionExpression="portfolio = :k and ts <= :t",
                 ExpressionAttributeValues={
